@@ -1,8 +1,4 @@
-use std::{
-    sync::{Arc, Mutex as StdMutex},
-    thread,
-    time::Duration,
-};
+use std::sync::{Arc, Mutex as StdMutex};
 
 use tokio::sync::Mutex as TokioMutex;
 
