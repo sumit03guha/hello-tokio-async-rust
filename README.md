@@ -54,6 +54,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `mpsc::channel` for async message passing between tasks
 - **Run**: `cargo run --bin channels`
 
+### 6. **Timeouts & Deadlines** - `timeout`
+
+- **File**: `src/bin/timeout.rs`
+- **Concept**: Setting time limits for async operations
+- **Key Learning**: Using `tokio::time::timeout` to prevent operations from hanging indefinitely
+- **Run**: `cargo run --bin timeout`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -64,7 +71,8 @@ src/
 │   ├── read_file.rs       # Async file reading
 │   ├── write_file.rs      # Async file writing
 │   ├── shared_state.rs    # Async mutexes and shared state
-│   └── channels.rs        # Async channels for communication
+│   ├── channels.rs        # Async channels for communication
+│   └── timeout.rs         # Timeout handling for async operations
 └── main.rs                # Main library entry point
 ```
 
@@ -88,6 +96,7 @@ cargo run --bin read_file
 cargo run --bin write_file
 cargo run --bin shared_state
 cargo run --bin channels
+cargo run --bin timeout
 
 ```
 
@@ -123,6 +132,12 @@ cargo run --bin channels
 - Task-to-task communication
 - Channel capacity and backpressure
 
+### Timeout Handling
+
+- Setting deadlines for async operations
+- Preventing operations from hanging indefinitely
+- Using `tokio::time::timeout` for graceful failure handling
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -134,6 +149,7 @@ Each example builds upon the previous one:
 3. **Introduce I/O** to see async file operations
 4. **Handle state** to learn about async-safe synchronization
 5. **Communicate** between tasks using channels
+6. **Add timeouts** to prevent operations from hanging indefinitely
 
 ### Common Patterns
 
@@ -142,6 +158,7 @@ Each example builds upon the previous one:
 - **File operations**: `tokio::fs::read_to_string()` and `tokio::fs::write()`
 - **Async mutexes**: `tokio::sync::Mutex` with `.lock().await`
 - **Channels**: `mpsc::channel(n)` for sender/receiver communication
+- **Timeouts**: `tokio::time::timeout(Duration::from_secs(n), future).await`
 
 ## 🤝 Contributing
 
