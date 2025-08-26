@@ -61,6 +61,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::time::timeout` to prevent operations from hanging indefinitely
 - **Run**: `cargo run --bin timeout`
 
+### 7. **Periodic Tasks & Intervals** - `ticker`
+
+- **File**: `src/bin/ticker.rs`
+- **Concept**: Running tasks at regular intervals
+- **Key Learning**: Using `tokio::time::interval` for periodic async task execution
+- **Run**: `cargo run --bin ticker`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -72,7 +79,8 @@ src/
 │   ├── write_file.rs      # Async file writing
 │   ├── shared_state.rs    # Async mutexes and shared state
 │   ├── channels.rs        # Async channels for communication
-│   └── timeout.rs         # Timeout handling for async operations
+│   ├── timeout.rs         # Timeout handling for async operations
+│   └── ticker.rs          # Periodic task execution with intervals
 └── main.rs                # Main library entry point
 ```
 
@@ -97,6 +105,7 @@ cargo run --bin write_file
 cargo run --bin shared_state
 cargo run --bin channels
 cargo run --bin timeout
+cargo run --bin ticker
 
 ```
 
@@ -150,6 +159,7 @@ Each example builds upon the previous one:
 4. **Handle state** to learn about async-safe synchronization
 5. **Communicate** between tasks using channels
 6. **Add timeouts** to prevent operations from hanging indefinitely
+7. **Create intervals** to run periodic async tasks
 
 ### Common Patterns
 
@@ -159,6 +169,7 @@ Each example builds upon the previous one:
 - **Async mutexes**: `tokio::sync::Mutex` with `.lock().await`
 - **Channels**: `mpsc::channel(n)` for sender/receiver communication
 - **Timeouts**: `tokio::time::timeout(Duration::from_secs(n), future).await`
+- **Intervals**: `tokio::time::interval(Duration::from_secs(n))` for periodic tasks
 
 ## 🤝 Contributing
 
