@@ -68,6 +68,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::time::interval` for periodic async task execution
 - **Run**: `cargo run --bin ticker`
 
+### 8. **Custom Futures & Wakers** - `delay`
+
+- **File**: `src/bin/delay.rs`
+- **Concept**: Implementing custom futures with manual polling
+- **Key Learning**: Understanding `Future` trait, `Poll`, wakers, and how async/await works under the hood
+- **Run**: `cargo run --bin delay`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -80,8 +87,11 @@ src/
 │   ├── shared_state.rs    # Async mutexes and shared state
 │   ├── channels.rs        # Async channels for communication
 │   ├── timeout.rs         # Timeout handling for async operations
-│   └── ticker.rs          # Periodic task execution with intervals
-└── main.rs                # Main library entry point
+│   ├── ticker.rs          # Periodic task execution with intervals
+│   └── delay.rs           # Custom Future implementation with manual polling
+├── lib.rs                 # Library entry point (exposes utils module)
+├── main.rs                # Main binary entry point
+└── utils.rs               # Shared utilities including tracing logger setup
 ```
 
 ## 🚦 Getting Started
@@ -106,6 +116,7 @@ cargo run --bin shared_state
 cargo run --bin channels
 cargo run --bin timeout
 cargo run --bin ticker
+cargo run --bin delay
 
 ```
 
@@ -160,6 +171,7 @@ Each example builds upon the previous one:
 5. **Communicate** between tasks using channels
 6. **Add timeouts** to prevent operations from hanging indefinitely
 7. **Create intervals** to run periodic async tasks
+8. **Implement Futures** to understand low-level async mechanics
 
 ### Common Patterns
 
@@ -170,6 +182,38 @@ Each example builds upon the previous one:
 - **Channels**: `mpsc::channel(n)` for sender/receiver communication
 - **Timeouts**: `tokio::time::timeout(Duration::from_secs(n), future).await`
 - **Intervals**: `tokio::time::interval(Duration::from_secs(n))` for periodic tasks
+- **Custom Futures**: Implement `Future` trait with `poll()` method and waker handling
+
+## 📊 Tracing & Logging
+
+This project includes a structured logging setup using the `tracing` ecosystem:
+
+### Utilities Module (`src/utils.rs`)
+
+The `get_logger()` function provides a pre-configured tracing subscriber with:
+
+- **Compact format** for cleaner log output
+- **File paths and line numbers** for easy debugging
+- **Thread IDs** to track concurrent operations
+- **No target paths** for reduced clutter
+
+### Usage in Binaries
+
+All binary examples can use the shared logger configuration:
+
+```rust
+use hello_tokio_async_rust::utils::get_logger;
+
+#[tokio::main]
+async fn main() {
+    let sub = get_logger();
+    tracing::subscriber::set_global_default(sub).unwrap();
+    
+    tracing::info!("Application started");
+}
+```
+
+The `lib.rs` file exposes the `utils` module, making it accessible to all binary files in the project.
 
 ## 🤝 Contributing
 
