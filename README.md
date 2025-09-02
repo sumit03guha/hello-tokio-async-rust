@@ -75,6 +75,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Understanding `Future` trait, `Poll`, wakers, and how async/await works under the hood
 - **Run**: `cargo run --bin delay`
 
+### 9. **One-Shot Notifications** - `notify`
+
+- **File**: `src/bin/notify.rs`
+- **Concept**: Signaling between tasks using one-shot notifications
+- **Key Learning**: Using `tokio::sync::Notify` for simple task coordination without data transfer
+- **Run**: `cargo run --bin notify`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -88,7 +95,8 @@ src/
 │   ├── channels.rs        # Async channels for communication
 │   ├── timeout.rs         # Timeout handling for async operations
 │   ├── ticker.rs          # Periodic task execution with intervals
-│   └── delay.rs           # Custom Future implementation with manual polling
+│   ├── delay.rs           # Custom Future implementation with manual polling
+│   └── notify.rs          # One-shot notifications between tasks
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -117,6 +125,7 @@ cargo run --bin channels
 cargo run --bin timeout
 cargo run --bin ticker
 cargo run --bin delay
+cargo run --bin notify
 
 ```
 
@@ -158,6 +167,12 @@ cargo run --bin delay
 - Preventing operations from hanging indefinitely
 - Using `tokio::time::timeout` for graceful failure handling
 
+### Task Coordination
+
+- One-shot notifications between tasks
+- Simple signaling without data transfer
+- Using `tokio::sync::Notify` for lightweight task coordination
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -172,6 +187,7 @@ Each example builds upon the previous one:
 6. **Add timeouts** to prevent operations from hanging indefinitely
 7. **Create intervals** to run periodic async tasks
 8. **Implement Futures** to understand low-level async mechanics
+9. **Coordinate tasks** using lightweight notifications
 
 ### Common Patterns
 
@@ -183,6 +199,7 @@ Each example builds upon the previous one:
 - **Timeouts**: `tokio::time::timeout(Duration::from_secs(n), future).await`
 - **Intervals**: `tokio::time::interval(Duration::from_secs(n))` for periodic tasks
 - **Custom Futures**: Implement `Future` trait with `poll()` method and waker handling
+- **Notifications**: `tokio::sync::Notify` for one-shot task signaling
 
 ## 📊 Tracing & Logging
 
@@ -208,7 +225,7 @@ use hello_tokio_async_rust::utils::get_logger;
 async fn main() {
     let sub = get_logger();
     tracing::subscriber::set_global_default(sub).unwrap();
-    
+
     tracing::info!("Application started");
 }
 ```
