@@ -82,6 +82,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::sync::Notify` for simple task coordination without data transfer
 - **Run**: `cargo run --bin notify`
 
+### 10. **Select & Racing Operations** - `select`
+
+- **File**: `src/bin/select.rs`
+- **Concept**: Racing multiple async operations and handling the first to complete
+- **Key Learning**: Using `tokio::select!` macro to wait on multiple futures simultaneously
+- **Run**: `cargo run --bin select`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -96,7 +103,8 @@ src/
 │   ├── timeout.rs         # Timeout handling for async operations
 │   ├── ticker.rs          # Periodic task execution with intervals
 │   ├── delay.rs           # Custom Future implementation with manual polling
-│   └── notify.rs          # One-shot notifications between tasks
+│   ├── notify.rs          # One-shot notifications between tasks
+│   └── select.rs          # Racing async operations with select! macro
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -126,6 +134,7 @@ cargo run --bin timeout
 cargo run --bin ticker
 cargo run --bin delay
 cargo run --bin notify
+cargo run --bin select
 
 ```
 
@@ -172,6 +181,8 @@ cargo run --bin notify
 - One-shot notifications between tasks
 - Simple signaling without data transfer
 - Using `tokio::sync::Notify` for lightweight task coordination
+- Racing multiple futures with `tokio::select!`
+- Handling the first completed operation among many
 
 ## 🔍 Understanding the Examples
 
@@ -188,6 +199,7 @@ Each example builds upon the previous one:
 7. **Create intervals** to run periodic async tasks
 8. **Implement Futures** to understand low-level async mechanics
 9. **Coordinate tasks** using lightweight notifications
+10. **Race operations** to handle the first completed future
 
 ### Common Patterns
 
@@ -200,6 +212,7 @@ Each example builds upon the previous one:
 - **Intervals**: `tokio::time::interval(Duration::from_secs(n))` for periodic tasks
 - **Custom Futures**: Implement `Future` trait with `poll()` method and waker handling
 - **Notifications**: `tokio::sync::Notify` for one-shot task signaling
+- **Select macro**: `tokio::select!` for racing multiple async operations
 
 ## 📊 Tracing & Logging
 
