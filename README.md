@@ -89,6 +89,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::select!` macro to wait on multiple futures simultaneously
 - **Run**: `cargo run --bin select`
 
+### 11. **One-Shot Channels** - `one_shot_channel`
+
+- **File**: `src/bin/one_shot_channel.rs`
+- **Concept**: Single-use channels for one-time value transfer between tasks
+- **Key Learning**: Using `tokio::sync::oneshot` for simple request-response patterns
+- **Run**: `cargo run --bin one_shot_channel`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -104,7 +111,8 @@ src/
 │   ├── ticker.rs          # Periodic task execution with intervals
 │   ├── delay.rs           # Custom Future implementation with manual polling
 │   ├── notify.rs          # One-shot notifications between tasks
-│   └── select.rs          # Racing async operations with select! macro
+│   ├── select.rs          # Racing async operations with select! macro
+│   └── one_shot_channel.rs # Single-use channels for one-time value transfer
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -135,6 +143,7 @@ cargo run --bin ticker
 cargo run --bin delay
 cargo run --bin notify
 cargo run --bin select
+cargo run --bin one_shot_channel
 
 ```
 
@@ -183,6 +192,8 @@ cargo run --bin select
 - Using `tokio::sync::Notify` for lightweight task coordination
 - Racing multiple futures with `tokio::select!`
 - Handling the first completed operation among many
+- Single-use channels for one-time value transfer
+- Request-response patterns with `tokio::sync::oneshot`
 
 ## 🔍 Understanding the Examples
 
@@ -200,6 +211,7 @@ Each example builds upon the previous one:
 8. **Implement Futures** to understand low-level async mechanics
 9. **Coordinate tasks** using lightweight notifications
 10. **Race operations** to handle the first completed future
+11. **Transfer values** using single-use channels
 
 ### Common Patterns
 
@@ -213,6 +225,7 @@ Each example builds upon the previous one:
 - **Custom Futures**: Implement `Future` trait with `poll()` method and waker handling
 - **Notifications**: `tokio::sync::Notify` for one-shot task signaling
 - **Select macro**: `tokio::select!` for racing multiple async operations
+- **One-shot channels**: `tokio::sync::oneshot::channel()` for single-use value transfer
 
 ## 📊 Tracing & Logging
 
