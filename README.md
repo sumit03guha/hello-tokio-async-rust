@@ -96,6 +96,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::sync::oneshot` for simple request-response patterns
 - **Run**: `cargo run --bin one_shot_channel`
 
+### 12. **Async Streams** - `stream`
+
+- **File**: `src/bin/stream.rs`
+- **Concept**: Processing sequences of async values with streams
+- **Key Learning**: Using `tokio_stream` for handling collections of async data
+- **Run**: `cargo run --bin stream`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -112,7 +119,8 @@ src/
 │   ├── delay.rs           # Custom Future implementation with manual polling
 │   ├── notify.rs          # One-shot notifications between tasks
 │   ├── select.rs          # Racing async operations with select! macro
-│   └── one_shot_channel.rs # Single-use channels for one-time value transfer
+│   ├── one_shot_channel.rs # Single-use channels for one-time value transfer
+│   └── stream.rs          # Processing sequences of async values with streams
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -144,6 +152,7 @@ cargo run --bin delay
 cargo run --bin notify
 cargo run --bin select
 cargo run --bin one_shot_channel
+cargo run --bin stream
 
 ```
 
@@ -195,6 +204,13 @@ cargo run --bin one_shot_channel
 - Single-use channels for one-time value transfer
 - Request-response patterns with `tokio::sync::oneshot`
 
+### Stream Processing
+
+- Processing sequences of async values
+- Using `tokio_stream` for handling collections of async data
+- Stream iteration with `StreamExt::next()`
+- Converting iterators to async streams
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -212,6 +228,7 @@ Each example builds upon the previous one:
 9. **Coordinate tasks** using lightweight notifications
 10. **Race operations** to handle the first completed future
 11. **Transfer values** using single-use channels
+12. **Process sequences** of async values with streams
 
 ### Common Patterns
 
@@ -226,6 +243,7 @@ Each example builds upon the previous one:
 - **Notifications**: `tokio::sync::Notify` for one-shot task signaling
 - **Select macro**: `tokio::select!` for racing multiple async operations
 - **One-shot channels**: `tokio::sync::oneshot::channel()` for single-use value transfer
+- **Streams**: `tokio_stream::iter()` and `StreamExt::next()` for processing async sequences
 
 ## 📊 Tracing & Logging
 
