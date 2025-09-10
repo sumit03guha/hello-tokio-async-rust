@@ -103,6 +103,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio_stream` for handling collections of async data
 - **Run**: `cargo run --bin stream`
 
+### 13. **Bridging Async & Sync** - `bridge_async_in_sync`
+
+- **File**: `src/bin/bridge_async_in_sync.rs`
+- **Concept**: Running async code from synchronous contexts
+- **Key Learning**: Using `tokio::runtime::Builder` to manually create and manage Tokio runtimes
+- **Run**: `cargo run --bin bridge_async_in_sync`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -120,7 +127,8 @@ src/
 │   ├── notify.rs          # One-shot notifications between tasks
 │   ├── select.rs          # Racing async operations with select! macro
 │   ├── one_shot_channel.rs # Single-use channels for one-time value transfer
-│   └── stream.rs          # Processing sequences of async values with streams
+│   ├── stream.rs          # Processing sequences of async values with streams
+│   └── bridge_async_in_sync.rs # Running async code from synchronous contexts
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -153,6 +161,7 @@ cargo run --bin notify
 cargo run --bin select
 cargo run --bin one_shot_channel
 cargo run --bin stream
+cargo run --bin bridge_async_in_sync
 
 ```
 
@@ -211,6 +220,13 @@ cargo run --bin stream
 - Stream iteration with `StreamExt::next()`
 - Converting iterators to async streams
 
+### Runtime Management
+
+- Manual runtime creation and management
+- Bridging async and synchronous code
+- Using `tokio::runtime::Builder` for custom runtime configuration
+- Running async code from non-async contexts
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -229,6 +245,7 @@ Each example builds upon the previous one:
 10. **Race operations** to handle the first completed future
 11. **Transfer values** using single-use channels
 12. **Process sequences** of async values with streams
+13. **Bridge contexts** between async and synchronous code
 
 ### Common Patterns
 
@@ -244,6 +261,7 @@ Each example builds upon the previous one:
 - **Select macro**: `tokio::select!` for racing multiple async operations
 - **One-shot channels**: `tokio::sync::oneshot::channel()` for single-use value transfer
 - **Streams**: `tokio_stream::iter()` and `StreamExt::next()` for processing async sequences
+- **Runtime bridging**: `tokio::runtime::Builder::new_multi_thread().build().unwrap().block_on()` for running async code from sync contexts
 
 ## 📊 Tracing & Logging
 
