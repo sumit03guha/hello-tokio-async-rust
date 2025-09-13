@@ -110,6 +110,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::runtime::Builder` to manually create and manage Tokio runtimes
 - **Run**: `cargo run --bin bridge_async_in_sync`
 
+### 14. **Signal Handling** - `signal`
+
+- **File**: `src/bin/signal.rs`
+- **Concept**: Handling system signals asynchronously
+- **Key Learning**: Using `tokio::signal` for graceful shutdown and signal processing
+- **Run**: `cargo run --bin signal`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -128,7 +135,8 @@ src/
 │   ├── select.rs          # Racing async operations with select! macro
 │   ├── one_shot_channel.rs # Single-use channels for one-time value transfer
 │   ├── stream.rs          # Processing sequences of async values with streams
-│   └── bridge_async_in_sync.rs # Running async code from synchronous contexts
+│   ├── bridge_async_in_sync.rs # Running async code from synchronous contexts
+│   └── signal.rs          # Handling system signals asynchronously
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -162,6 +170,7 @@ cargo run --bin select
 cargo run --bin one_shot_channel
 cargo run --bin stream
 cargo run --bin bridge_async_in_sync
+cargo run --bin signal
 
 ```
 
@@ -227,6 +236,13 @@ cargo run --bin bridge_async_in_sync
 - Using `tokio::runtime::Builder` for custom runtime configuration
 - Running async code from non-async contexts
 
+### Signal Handling
+
+- Handling system signals asynchronously
+- Graceful shutdown and cleanup
+- Using `tokio::signal` for Ctrl+C and other signal processing
+- Cross-platform signal handling
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -246,6 +262,7 @@ Each example builds upon the previous one:
 11. **Transfer values** using single-use channels
 12. **Process sequences** of async values with streams
 13. **Bridge contexts** between async and synchronous code
+14. **Handle signals** for graceful shutdown and system interaction
 
 ### Common Patterns
 
@@ -262,6 +279,7 @@ Each example builds upon the previous one:
 - **One-shot channels**: `tokio::sync::oneshot::channel()` for single-use value transfer
 - **Streams**: `tokio_stream::iter()` and `StreamExt::next()` for processing async sequences
 - **Runtime bridging**: `tokio::runtime::Builder::new_multi_thread().build().unwrap().block_on()` for running async code from sync contexts
+- **Signal handling**: `tokio::signal::ctrl_c().await` for graceful shutdown and signal processing
 
 ## 📊 Tracing & Logging
 
