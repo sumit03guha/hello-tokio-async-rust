@@ -117,6 +117,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio::signal` for graceful shutdown and signal processing
 - **Run**: `cargo run --bin signal`
 
+### 15. **Cancellation Tokens** - `cancellation_token`
+
+- **File**: `src/bin/cancellation_token.rs`
+- **Concept**: Cooperative cancellation of async tasks
+- **Key Learning**: Using `tokio_util::sync::CancellationToken` for graceful task termination
+- **Run**: `cargo run --bin cancellation_token`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -136,7 +143,8 @@ src/
 │   ├── one_shot_channel.rs # Single-use channels for one-time value transfer
 │   ├── stream.rs          # Processing sequences of async values with streams
 │   ├── bridge_async_in_sync.rs # Running async code from synchronous contexts
-│   └── signal.rs          # Handling system signals asynchronously
+│   ├── signal.rs          # Handling system signals asynchronously
+│   └── cancellation_token.rs # Cooperative cancellation of async tasks
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -171,6 +179,7 @@ cargo run --bin one_shot_channel
 cargo run --bin stream
 cargo run --bin bridge_async_in_sync
 cargo run --bin signal
+cargo run --bin cancellation_token
 
 ```
 
@@ -243,6 +252,13 @@ cargo run --bin signal
 - Using `tokio::signal` for Ctrl+C and other signal processing
 - Cross-platform signal handling
 
+### Task Cancellation
+
+- Cooperative cancellation of async tasks
+- Using `tokio_util::sync::CancellationToken` for graceful termination
+- Combining cancellation with `tokio::select!` for responsive task management
+- Clean shutdown patterns for long-running operations
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -263,6 +279,7 @@ Each example builds upon the previous one:
 12. **Process sequences** of async values with streams
 13. **Bridge contexts** between async and synchronous code
 14. **Handle signals** for graceful shutdown and system interaction
+15. **Cancel tasks** cooperatively for responsive application control
 
 ### Common Patterns
 
@@ -280,6 +297,7 @@ Each example builds upon the previous one:
 - **Streams**: `tokio_stream::iter()` and `StreamExt::next()` for processing async sequences
 - **Runtime bridging**: `tokio::runtime::Builder::new_multi_thread().build().unwrap().block_on()` for running async code from sync contexts
 - **Signal handling**: `tokio::signal::ctrl_c().await` for graceful shutdown and signal processing
+- **Cancellation**: `CancellationToken::new()` and `token.cancelled().await` for cooperative task cancellation
 
 ## 📊 Tracing & Logging
 
