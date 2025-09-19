@@ -124,6 +124,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `tokio_util::sync::CancellationToken` for graceful task termination
 - **Run**: `cargo run --bin cancellation_token`
 
+### 16. **Task Tracking & Management** - `task_tracker`
+
+- **File**: `src/bin/task_tracker.rs`
+- **Concept**: Tracking and waiting for multiple spawned tasks to complete
+- **Key Learning**: Using `tokio_util::task::TaskTracker` for managing task lifecycle and completion
+- **Run**: `cargo run --bin task_tracker`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -144,7 +151,8 @@ src/
 │   ├── stream.rs          # Processing sequences of async values with streams
 │   ├── bridge_async_in_sync.rs # Running async code from synchronous contexts
 │   ├── signal.rs          # Handling system signals asynchronously
-│   └── cancellation_token.rs # Cooperative cancellation of async tasks
+│   ├── cancellation_token.rs # Cooperative cancellation of async tasks
+│   └── task_tracker.rs    # Tracking and waiting for multiple spawned tasks
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -180,6 +188,7 @@ cargo run --bin stream
 cargo run --bin bridge_async_in_sync
 cargo run --bin signal
 cargo run --bin cancellation_token
+cargo run --bin task_tracker
 
 ```
 
@@ -259,6 +268,13 @@ cargo run --bin cancellation_token
 - Combining cancellation with `tokio::select!` for responsive task management
 - Clean shutdown patterns for long-running operations
 
+### Task Management
+
+- Tracking multiple spawned tasks with `TaskTracker`
+- Managing task lifecycle and completion
+- Using `tracker.close()` and `tracker.wait()` for coordinated task shutdown
+- Bulk task management for complex async workflows
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -280,6 +296,7 @@ Each example builds upon the previous one:
 13. **Bridge contexts** between async and synchronous code
 14. **Handle signals** for graceful shutdown and system interaction
 15. **Cancel tasks** cooperatively for responsive application control
+16. **Track tasks** to manage multiple spawned operations and wait for completion
 
 ### Common Patterns
 
@@ -298,6 +315,7 @@ Each example builds upon the previous one:
 - **Runtime bridging**: `tokio::runtime::Builder::new_multi_thread().build().unwrap().block_on()` for running async code from sync contexts
 - **Signal handling**: `tokio::signal::ctrl_c().await` for graceful shutdown and signal processing
 - **Cancellation**: `CancellationToken::new()` and `token.cancelled().await` for cooperative task cancellation
+- **Task tracking**: `TaskTracker::new()` and `tracker.spawn()` for managing multiple task lifecycles
 
 ## 📊 Tracing & Logging
 
