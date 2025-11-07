@@ -145,6 +145,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `TaskTracker` and `CancellationToken` together for managing cancellable task groups
 - **Run**: `cargo run --bin task_tracker_with_cancellation`
 
+### 19. **Lazy Async Initialization** - `once_cell`
+
+- **File**: `src/bin/once_cell.rs`
+- **Concept**: One-time async initialization of static values
+- **Key Learning**: Using `tokio::sync::OnceCell` for lazy initialization that happens only once, even with concurrent access
+- **Run**: `cargo run --bin once_cell`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -168,7 +175,8 @@ src/
 │   ├── cancellation_token.rs # Cooperative cancellation of async tasks
 │   ├── task_tracker.rs    # Tracking and waiting for multiple spawned tasks
 │   ├── test_async.rs      # Writing unit tests for async functions
-│   └── task_tracker_with_cancellation.rs # Combining task tracking with cancellation
+│   ├── task_tracker_with_cancellation.rs # Combining task tracking with cancellation
+│   └── once_cell.rs       # Lazy async initialization of static values
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -206,6 +214,7 @@ cargo run --bin signal
 cargo run --bin cancellation_token
 cargo run --bin task_tracker
 cargo run --bin task_tracker_with_cancellation
+cargo run --bin once_cell
 
 # Run async tests
 cargo test --bin test_async
@@ -304,6 +313,13 @@ cargo test --bin test_async
 - Testing async operations with assertions
 - Ensuring async code correctness through automated tests
 
+### Lazy Initialization
+
+- One-time async initialization of static values
+- Using `tokio::sync::OnceCell` for lazy initialization
+- Thread-safe initialization that happens only once, even with concurrent access
+- Deferring expensive async operations until first access
+
 ## 🔍 Understanding the Examples
 
 ### Why Sequential Learning?
@@ -328,6 +344,7 @@ Each example builds upon the previous one:
 16. **Track tasks** to manage multiple spawned operations and wait for completion
 17. **Test async code** to ensure correctness and reliability
 18. **Combine patterns** by integrating task tracking with cancellation for robust task management
+19. **Initialize lazily** with async one-time initialization for static values
 
 ### Common Patterns
 
@@ -348,6 +365,7 @@ Each example builds upon the previous one:
 - **Cancellation**: `CancellationToken::new()` and `token.cancelled().await` for cooperative task cancellation
 - **Task tracking**: `TaskTracker::new()` and `tracker.spawn()` for managing multiple task lifecycles
 - **Combined patterns**: Using `TaskTracker` with `CancellationToken` and `tokio::select!` for cancellable task groups
+- **Lazy initialization**: `OnceCell::const_new()` and `.get_or_init()` for one-time async initialization of static values
 - **Async testing**: `#[tokio::test]` attribute for writing unit tests for async functions
 
 ## 📊 Tracing & Logging
