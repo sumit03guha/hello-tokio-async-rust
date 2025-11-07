@@ -138,6 +138,13 @@ This project follows a sequential learning approach, with each binary building u
 - **Key Learning**: Using `#[tokio::test]` attribute to test async code with assertions
 - **Run**: `cargo test --bin test_async`
 
+### 18. **Task Tracking with Cancellation** - `task_tracker_with_cancellation`
+
+- **File**: `src/bin/task_tracker_with_cancellation.rs`
+- **Concept**: Combining task tracking with cooperative cancellation
+- **Key Learning**: Using `TaskTracker` and `CancellationToken` together for managing cancellable task groups
+- **Run**: `cargo run --bin task_tracker_with_cancellation`
+
 ## 🛠️ Project Structure
 
 ```sh
@@ -160,7 +167,8 @@ src/
 │   ├── signal.rs          # Handling system signals asynchronously
 │   ├── cancellation_token.rs # Cooperative cancellation of async tasks
 │   ├── task_tracker.rs    # Tracking and waiting for multiple spawned tasks
-│   └── test_async.rs      # Writing unit tests for async functions
+│   ├── test_async.rs      # Writing unit tests for async functions
+│   └── task_tracker_with_cancellation.rs # Combining task tracking with cancellation
 ├── lib.rs                 # Library entry point (exposes utils module)
 ├── main.rs                # Main binary entry point
 └── utils.rs               # Shared utilities including tracing logger setup
@@ -197,6 +205,7 @@ cargo run --bin bridge_async_in_sync
 cargo run --bin signal
 cargo run --bin cancellation_token
 cargo run --bin task_tracker
+cargo run --bin task_tracker_with_cancellation
 
 # Run async tests
 cargo test --bin test_async
@@ -285,6 +294,8 @@ cargo test --bin test_async
 - Managing task lifecycle and completion
 - Using `tracker.close()` and `tracker.wait()` for coordinated task shutdown
 - Bulk task management for complex async workflows
+- Combining `TaskTracker` with `CancellationToken` for cancellable task groups
+- Using `tokio::select!` to race between task execution and cancellation signals
 
 ### Testing Async Code
 
@@ -316,6 +327,7 @@ Each example builds upon the previous one:
 15. **Cancel tasks** cooperatively for responsive application control
 16. **Track tasks** to manage multiple spawned operations and wait for completion
 17. **Test async code** to ensure correctness and reliability
+18. **Combine patterns** by integrating task tracking with cancellation for robust task management
 
 ### Common Patterns
 
@@ -335,6 +347,7 @@ Each example builds upon the previous one:
 - **Signal handling**: `tokio::signal::ctrl_c().await` for graceful shutdown and signal processing
 - **Cancellation**: `CancellationToken::new()` and `token.cancelled().await` for cooperative task cancellation
 - **Task tracking**: `TaskTracker::new()` and `tracker.spawn()` for managing multiple task lifecycles
+- **Combined patterns**: Using `TaskTracker` with `CancellationToken` and `tokio::select!` for cancellable task groups
 - **Async testing**: `#[tokio::test]` attribute for writing unit tests for async functions
 
 ## 📊 Tracing & Logging
